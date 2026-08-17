@@ -1,0 +1,14 @@
+# 環境変数・機密情報
+.env
+
+# Pythonキャッシュ・仮想環境
+__pycache__/
+*.py[cod]
+.venv/
+
+# テストキャッシュ
+.pytest_cache/
+
+# エディタ設定
+.vscode/
+.idea/

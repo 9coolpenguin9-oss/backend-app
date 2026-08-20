@@ -32,6 +32,6 @@ FastAPIとPostgreSQLで構築した、非同期処理・自動テスト・CIデ�
 graph TD
     User[クライアント / フロントエンド] -->|HTTPS| RenderApp[Render: FastAPI App]
     RenderApp -->|SQL| RenderDB[(Render: PostgreSQL)]
-    Developer[開発者] -->|git push| GitHub[GitHub Repogitory]
+    Developer[開発者] -->|git push| GitHub[GitHub Repository]
     GitHub -->|Trigger| Actions[GitHub Actions CI: Pytest]
     GitHub -->|Auto Deploy| RenderApp

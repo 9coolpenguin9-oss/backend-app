@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-# 1. 自分のアイテム一覧取得（認証必須）
+# 自分のアイテム一覧取得（認証必須）
 @router.get("/", response_model=list[schemas.ItemResponse])
 def get_items(
     skip: int = Query(0, ge=0, description="取得開始位置"),
@@ -31,7 +31,7 @@ def get_items(
     )
 
 
-# 2. 自分のアイテム1件取得（認証必須）
+# 自分のアイテム1件取得（認証必須）
 @router.get("/{item_id}", response_model=schemas.ItemResponse)
 def get_item(
     item_id: int,
@@ -52,7 +52,7 @@ def get_item(
     return item
 
 
-# 3. 新規作成（認証必須）
+# 新規作成（認証必須）
 @router.post(
     "/",
     response_model=schemas.ItemResponse,
@@ -70,7 +70,7 @@ def create_item(
     return new_item
 
 
-# 4. 更新（認証必須）
+# 更新（認証必須）
 @router.put("/{item_id}", response_model=schemas.ItemResponse)
 def update_item(
     item_id: int,
@@ -91,7 +91,7 @@ def update_item(
     return item_query.first()
 
 
-# 5. 削除（認証必須）
+# 削除（認証必須）
 @router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_item(
     item_id: int,

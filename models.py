@@ -12,10 +12,10 @@ class ItemModel(Base):
     )
     name: Mapped[str] = mapped_column(Text, nullable=False)
 
-    # ① 外部キー（users テーブルの id を参照）
+    # 外部キー（users テーブルの id を参照）
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
 
-    # ② User オブジェクトへの参照
+    # User オブジェクトへの参照
     owner: Mapped["User"] = relationship(back_populates="items")
 
 
@@ -29,5 +29,5 @@ class User(Base):
     )
     hashed_password: Mapped[str] = mapped_column(String, nullable=False)
 
-    # ③ 1人のユーザーが所持する ItemModel のリスト参照
+    # 1人のユーザーが所持する ItemModel のリスト参照
     items: Mapped[list["ItemModel"]] = relationship(back_populates="owner")

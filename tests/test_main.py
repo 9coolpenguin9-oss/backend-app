@@ -1,11 +1,11 @@
 import pytest
 
-# 1. ルートエンドポイントのテスト
+# ルートエンドポイントのテスト
 def test_read_main(client):
     response = client.get("/")
     assert response.status_code == 200
 
-# 2. ログイン成功テスト
+# ログイン成功テスト
 def test_login_success(client):
     # テスト用のサンプルユーザーを作成（テスト終了時に自動ロールバック）
     client.post(
@@ -20,7 +20,7 @@ def test_login_success(client):
     assert response.status_code == 200
     assert "access_token" in response.json()
 
-# 3. 存在しないユーザーでのログイン失敗テスト
+# 存在しないユーザーでのログイン失敗テスト
 def test_login_user_not_found(client):
     response = client.post(
         "/users/login",
@@ -28,12 +28,12 @@ def test_login_user_not_found(client):
     )
     assert response.status_code == 401
 
-# 4. トークンなしでのアイテム取得失敗テスト（401）
+# トークンなしでのアイテム取得失敗テスト（401）
 def test_get_items_unauthorized(client):
     response = client.get("/items/")
     assert response.status_code == 401
 
-# 5. トークン付きでのアイテム取得成功テスト（200）
+# トークン付きでのアイテム取得成功テスト（200）
 def test_get_items_authorized(client):
     # テスト用のサンプルユーザーを作成（テスト終了時に自動ロールバック）
     client.post(

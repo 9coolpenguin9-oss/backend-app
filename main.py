@@ -12,7 +12,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# 1. CORS設定（core/config.py の settings から取得）
+# CORS設定（core/config.py の settings から取得）
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 
-# 2. カスタムエラーハンドリング（HTTPExceptionの統一フォーマット化）
+# カスタムエラーハンドリング（HTTPExceptionの統一フォーマット化）
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
     return JSONResponse(

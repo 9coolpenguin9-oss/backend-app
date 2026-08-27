@@ -5,25 +5,26 @@ from pathlib import Path
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-# プロジェクトルート (backend-app) をパスに追加
+# プロジェクトルートをパスに追加(2つ上のフォルダ、backend_app参照)
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
-# ディレクトリ構造に合わせたインポート
 from core.config import settings
 from database import Base
-import models  # テーブル定義（モデル）をメタデータに登録するために読み込む
 
-# Alembic Config オブジェクトの取得
+# テーブル定義（モデル）をメタデータに登録するために読み込む これがないとテーブルが全削除される
+import models  
+
+# alembic.iniのコピー（自動）　元ファイルを書き換えたくないため
 config = context.config
 
-# .env から読み込んだ DATABASE_URL を Alembic にセット
+# .env から読み込んだ DATABASE_URL を Alembic にセット　URLにはパスワードが含まれているため分離している
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
-# ログ設定
+# ログ設定　二重否定に見えるのは、空文字や０でも実行するため
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Alembic が監視する MetaData
+# Alembic が監視する MetaData　Alembic指定の変数名
 target_metadata = Base.metadata
 
 

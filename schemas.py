@@ -12,7 +12,7 @@ class ItemResponse(BaseModel):
     name: str
     user_id: int
 
-    ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True)
 
 
 # ユーザー登録時に受け取るデータ
@@ -24,7 +24,7 @@ class UserCreate(BaseModel):
 class UserResponse(BaseModel):
     id: int
     email: str
-    items: list[ItemResponse] = []
+    items: list[ItemResponse] = [] #　null　対策
 
     # ORMモデルからPydanticモデルへの変換を許可
     model_config = ConfigDict(from_attributes=True)

@@ -17,6 +17,16 @@ FastAPIとPostgreSQLで構築した、非同期処理・自動テスト・CIデ�
 
 ---
 
+## 主要機能
+
+- **ユーザー管理・認証**: ユーザー登録・ログインおよびJWT認証
+- **Items CRUD API**: 非同期処理に対応したリソース操作
+- **ヘルスチェック API (`/health`)**: APIサーバーおよびPostgreSQLの疎通・生存確認
+- **DBマイグレーション**: Alembicによるスキーマ管理
+- **自動テスト**: Pytestによる非同期エンドポイントのテスト
+
+---
+
 ## 技術スタック
 - **バックエンド**: Python 3.11 / FastAPI
 - **データベース**: PostgreSQL / SQLAlchemy / Alembic (マイグレーション)
@@ -32,6 +42,12 @@ FastAPIとPostgreSQLで構築した、非同期処理・自動テスト・CIデ�
 graph TD
     User[クライアント / フロントエンド] -->|HTTPS| RenderApp[Render: FastAPI App]
     RenderApp -->|SQL| RenderDB[(Render: PostgreSQL)]
+    RenderApp -.->|DB Connection Check| RenderDB
+    
     Developer[開発者] -->|git push| GitHub[GitHub Repository]
     GitHub -->|Trigger| Actions[GitHub Actions CI: Pytest]
     GitHub -->|Auto Deploy| RenderApp
+    
+    subgraph Health Check
+        RenderApp -->|GET /health| RenderApp
+    end

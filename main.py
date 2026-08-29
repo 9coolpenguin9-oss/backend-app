@@ -5,7 +5,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 import models
 from database import engine
-from routers import items, users
+from routers import items, users, system
 from core.config import settings
 
 models.Base.metadata.create_all(bind=engine)
@@ -39,8 +39,4 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
 
 app.include_router(items.router)
 app.include_router(users.router)
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
+app.include_router(system.router)

@@ -37,6 +37,12 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
     )
 
 
+# Renderの自動起動（ヘルスチェック）用ルート
+@app.get("/")
+def read_root():
+    return {"status": "ok", "message": "API is running"}
+
+
 app.include_router(items.router)
 app.include_router(users.router)
 app.include_router(system.router)

@@ -5,12 +5,13 @@ from jose import JWTError, jwt
 import bcrypt
 from sqlalchemy.orm import Session
 
+from core.config import settings
 import database
 import models
 
 
 # --- JWTの設定値 ---
-SECRET_KEY = "your-secret-key-keep-it-secret"  # 署名用の秘密鍵
+SECRET_KEY = settings.SECRET_KEY  # 署名用の秘密鍵
 ALGORITHM = "HS256"  # 暗号化アルゴリズム
 ACCESS_TOKEN_EXPIRE_MINUTES = 30  # トークンの有効期限（30分）
 
